@@ -1,97 +1,107 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# **Quiz Me**
+
+Quiz Me is a real-time quiz application built with React Native that leverages UDP communication to facilitate a live buzzer (ring) system. This app allows a moderator (server) and contestants (clients) to interact seamlessly over a local network.
+
+# Features
+
+Dual Mode Operation:The app can run in two modes:
+
+Server Mode (Quiz Moderator): Listens for incoming ring messages (team names) from contestants, displays the order of responses (with the fastest ring on top), and can reset rounds by sending reset commands to clients.
+
+Client Mode (Contestants): Allows users to enter their team name and "ring in" for a question. Once rung, the button is disabled for 10 seconds to prevent multiple submissions.
+
+Real-Time Communication:Uses the react-native-udp library to send and receive UDP messages across devices on the same local network.
+
+Unicast Reset Functionality:The server tracks connected clients and can send a unicast reset message to each client, re-enabling their ring button for the next round.
+
+Configurable Network Settings:Automatically retrieves the device’s local IP using react-native-network-info.
+
+# How It Works
+
+Server Mode:
+
+The moderator’s device binds to a specific UDP port (8888).
+
+Contestants send their team names via UDP.
+
+The server collects and displays the received names in order based on the time of arrival.
+
+A "Reset Round" function sends a reset command to all connected clients, allowing them to ring in again.
+
+Client Mode:
+
+Contestant devices bind to a different UDP port (8887) and send their team names to the server’s IP address.
+
+Once a client rings in, the ring button is disabled for 10 seconds to prevent repeat submissions.
+
+Clients listen for a reset command from the server to re-enable the ring button.
 
 # Getting Started
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Prerequisites
 
-## Step 1: Start Metro
+Node.js and npm/yarn
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+React Native CLI
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Android Studio (for Android emulator) or Xcode (for iOS)
 
-```sh
-# Using npm
-npm start
+### The necessary dependencies:
 
-# OR using Yarn
-yarn start
-```
+react-native-udp
 
-## Step 2: Build and run your app
+react-native-network-info
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+# Installation
+Clone the repository:
 
-### Android
+bash
+Copy
+Edit
+git clone https://github.com/Boowusu-2/QuizMe.git
+cd QuizMev1
+Install dependencies:
 
-```sh
-# Using npm
-npm run android
+bash
+Copy
+Edit
+npm install
+# or
+yarn install
+Link native modules (if needed):
 
-# OR using Yarn
-yarn android
-```
+bash
+Copy
+Edit
+npx react-native link
+Run the app on your desired device:
 
-### iOS
+bash
+Copy
+Edit
+npx react-native run-android
+# or
+npx react-native run-ios
+Usage
+Switch Modes:
+Use the on-screen button to switch between Server and Client modes.
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+# Server Mode:
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+The server displays its IP address—share this with contestants.
+As contestants ring in, their team names appear in order.
+Use the "Reset Round" button to clear the current responses and enable contestants to ring in again.
 
-```sh
-bundle install
-```
+# Client Mode:
 
-Then, and every time you update your native dependencies, run:
+Enter the server’s IP and your team name.
+Press the ring button to send your response.
+The button will disable for 10 seconds after you ring in and will automatically re-enable afterward.
+Contributing
+Contributions are welcome! Please open an issue or submit a pull request if you have suggestions or improvements.
 
-```sh
-bundle exec pod install
-```
+# License
+This project is licensed under the MIT License.
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
 
-```sh
-# Using npm
-npm run ios
 
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
